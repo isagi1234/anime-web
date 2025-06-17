@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نقابة الأنمي K.N.H ⛈️RAIN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #1a1a40, #0c0c1d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .rain-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.7;
+        }
+        
+        .drop {
+            position: absolute;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,200,255,0.8));
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* رايات الدول */
+        .flags-header {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0 40px;
+            flex-wrap: wrap;
+        }
+        
+        .flag-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .flag {
+            width: 120px;
+            height: 80px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .flag-label {
+            font-size: 1.2rem;
+            color: #ffd700;
+            text-shadow: 0 0 5px rgba(0,0,0,0.7);
+        }
+        
+        .palestine-flag {
+            background: linear-gradient(to bottom, 
+                #000000 33%, 
+                #ffffff 33%, #ffffff 66%, 
+                #007a3d 66%);
+            position: relative;
+        }
+        
+        .palestine-flag::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 40px;
+            height: 100%;
+            background: #ce1126;
+            clip-path: polygon(0 0, 0% 100%, 100% 50%);
+        }
+        
+        .sudan-flag {
+            background: linear-gradient(to bottom, 
+                #d21034 33%, 
+                #ffffff 33%, #ffffff 66%, 
+                #000000 66%);
+            position: relative;
+        }
+        
+        .sudan-flag::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 40px;
+            height: 100%;
+            background: #007a3d;
+            clip-path: polygon(0 0, 0% 100%, 100% 50%);
+        }
+        
+        .prayer-text {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin: 10px 0 30px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.7);
+        }
+        
+        /* هيدر النقابة */
+        .guild-header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .guild-name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .guild-logo {
+            font-size: 4.5rem;
+            background: linear-gradient(45deg, #00b4db, #0083b0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 180, 219, 0.5);
+            animation: glow 3s infinite alternate;
+        }
+        
+        .rain-emblem {
+            font-size: 4rem;
+            animation: rainBounce 3s infinite;
+        }
+        
+        @keyframes rainBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(-5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(0, 180, 219, 0.5); }
+            100% { text-shadow: 0 0 30px rgba(0, 180, 219, 0.8), 0 0 50px rgba(0, 180, 219, 0.6); }
+        }
+        
+        .guild-title {
+            font-size: 2.8rem;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .developer {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 20px 0;
+            border: 2px solid #00f7ff;
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+        }
+        
+        .developer h2 {
+            font-size: 1.8rem;
+            color: #ffd700;
+        }
+        
+        /* قسم الترحيب */
+        .welcome-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            text-align: center;
+            border: 2px solid #00f7ff;
+            max-width: 900px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-section::before {
+            content: "⛈️";
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+        
+        .welcome-title {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        
+        .welcome-message {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .highlight {
+            color: #00f7ff;
+            font-weight: bold;
+        }
+        
+        /* قسم الرتب */
+        .ranks-container {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin: 60px 0;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .ranks-title {
+            text-align: center;
+            font-size: 2.8rem;
+            color: #ffd700;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            position: relative;
+        }
+        
+        .ranks-title::after {
+            content: "👑";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+        }
+        
+        .ranks-title::before {
+            content: "👑";
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+        }
+        
+        .rank-category {
+            margin-bottom: 50px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .category-title {
+            font-size: 2.3rem;
+            color: #ff7e5f;
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .imperial-title {
+            background: linear-gradient(to right, #daa520, #ffd700, #daa520);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 2px solid #ffd700;
+            padding: 15px 50px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
+        }
+        
+        .rank-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .rank-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .imperial-card {
+            background: linear-gradient(135deg, rgba(90, 70, 20, 0.4), rgba(40, 30, 10, 0.6));
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            transform: perspective(1000px) rotateX(5deg);
+        }
+        
+        .imperial-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                transparent 50%, 
+                rgba(255, 215, 0, 0.1) 50%, 
+                rgba(255, 215, 0, 0.1) 75%, 
+                transparent 75%);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        .rank-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .imperial-card:hover {
+            transform: perspective(1000px) rotateX(5deg) translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        }
+        
+        .rank-name {
+            font-size: 1.8rem;
+            color: #ffd700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            min-height: 60px;
+        }
+        
+        .imperial-name {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            font-size: 2rem;
+        }
+        
+        .rank-icon {
+            font-size: 2rem;
+            margin-left: 10px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+        }
+        
+        .imperial-icon {
+            background: rgba(90, 70, 20, 0.6);
+            border: 2px solid #ffd700;
+            font-size: 2.2rem;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .rank-members {
+            font-size: 1.4rem;
+            color: #aaa;
+            padding: 12px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+        
+        .imperial-members {
+            color: #ffd700;
+            font-size: 1.5rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        /* قسم التواصل */
+        .contact-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px auto;
+            text-align: center;
+            max-width: 800px;
+            border: 2px solid #00f7ff;
+            position: relative;
+        }
+        
+        .contact-title {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .contact-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 247, 255, 0.3);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border-color: #00f7ff;
+        }
+        
+        .contact-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #00f7ff;
+        }
+        
+        .contact-card-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+        
+        .contact-info {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            background: linear-gradient(to right, #00b4db, #0083b0);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .contact-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            color: #aaa;
+            font-size: 1.1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .copyright {
+            font-size: 1.4rem;
+            color: #ffd700;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .guild-logo { font-size: 3.5rem; }
+            .guild-title { font-size: 2.2rem; }
+            .welcome-title { font-size: 2rem; }
+            .welcome-message { font-size: 1.4rem; }
+            .ranks-title { font-size: 2.3rem; }
+            .rank-grid { grid-template-columns: 1fr; }
+            .flags-header { gap: 15px; }
+            .flag { width: 100px; height: 70px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- تأثير المطر -->
+    <div class="rain-effect" id="rainEffect"></div>
+    
+    <div class="container">
+        <!-- رايات فلسطين والسودان -->
+        <div class="flags-header">
+            <div class="flag-container">
+                <div class="flag palestine-flag"></div>
+                <div class="flag-label">فلسطين</div>
+            </div>
+            
+            <div class="flag-container">
+                <div class="flag sudan-flag"></div>
+                <div class="flag-label">السودان</div>
+            </div>
+        </div>
+        
+        <div class="prayer-text">
+            اللهم كن عونا لإخواننا في فلسطين والسودان
+        </div>
+        
+        <!-- هيدر النقابة -->
+        <header class="guild-header">
+            <div class="guild-name">
+                <div class="guild-logo">K.N.H</div>
+                <div class="rain-emblem">⛈️</div>
+                <div class="guild-logo">RAIN</div>
+            </div>
+            
+            <h1 class="guild-title">نقابة الأنمي الإمبراطورية</h1>
+            
+            <div class="developer">
+                <h2>من تطوير <strong>ايساغي</strong></h2>
+            </div>
+        </header>
+        
+        <!-- قسم الترحيب -->
+        <section class="welcome-section">
+            <h2 class="welcome-title">مرحباً بكم في نقابة الأنمي K.N.H ⛈️RAIN</h2>
+            <p class="welcome-message">
+                نرحب بكم تحت غيمة <span class="highlight">RAIN</span> حيث تجتمع قلوب محبي الأنمي والمانجا. 
+                هنا في نقابتنا، نخلق مجتمعاً مترابطاً يشارك فيه الأعضاء شغفهم، معرفتهم، وإبداعاتهم في عالم الأنمي. 
+                انضموا إلينا في رحلتنا المثيرة حيث نستكشف عوالم جديدة، نناقش الشخصيات المفضلة، 
+                وننظم فعاليات حصرية لأعضاء النقابة فقط.
+            </p>
+            <p class="welcome-message">
+                كن جزءاً من عائلة <span class="highlight">K.N.H ⛈️RAIN</span> حيث يلتقي الإبداع بالصداقة تحت غيمة من الشغف والمرح!
+            </p>
+        </section>
+        
+        <!-- قسم الرتب -->
+        <div class="ranks-container">
+            <h2 class="ranks-title">رتب أعضاء النقابة</h2>
+            
+            <!-- الرتب الإمبراطورية -->
+            <div class="rank-category">
+                <h3 class="category-title imperial-title">الرتب الإمبراطورية</h3>
+                <div class="rank-grid">
+                    <div class="rank-card imperial-card">
+                        <div class="rank-name imperial-name">
+                            <span class="rank-icon imperial-icon">👑</span>
+                            الإمبراطور
+                        </div>
+                        <div class="rank-members imperial-members">باجي</div>
+                    </div>
+                    
+                    <div class="rank-card imperial-card">
+                        <div class="rank-name imperial-name">
+                            <span class="rank-icon imperial-icon">🎖️</span>
+                            نائب الإمبراطور
+                        </div>
+                        <div class="rank-members imperial-members">كيوا</div>
+                    </div>
+                    
+                    <div class="rank-card imperial-card">
+                        <div class="rank-name imperial-name">
+                            <span class="rank-icon imperial-icon">🏰</span>
+                            اللورد
+                        </div>
+                        <div class="rank-members imperial-members">ساسكي</div>
+                    </div>
+                    
+                    <div class="rank-card imperial-card">
+                        <div class="rank-name imperial-name">
+                            <span class="rank-icon imperial-icon">⚜️</span>
+                            ماركيز
+                        </div>
+                        <div class="rank-members imperial-members">فيتان</div>
+                    </div>
+                    
+                    <div class="rank-card imperial-card">
+                        <div class="rank-name imperial-name">
+                            <span class="rank-icon imperial-icon">🗡️</span>
+                            الحاكم
+                        </div>
+                        <div class="rank-members imperial-members">موزان</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- الرتب الملكية -->
+            <div class="rank-category">
+                <h3 class="category-title">الرتب الملكية</h3>
+                <div class="rank-grid">
+                    <div class="rank-card">
+                        <div class="rank-name">
+                            <span class="rank-icon">👑</span>
+                            الملك
+                        </div>
+                        <div class="rank-members">دوما</div>
+                    </div>
+                    
+                    <div class="rank-card">
+                        <div class="rank-name">
+                            <span class="rank-icon">🎖️</span>
+                            نواب الملك
+                        </div>
+                        <div class="rank-members">نيزوكو - سونغ - مي مي</div>
+                    </div>
+                    
+                    <div class="rank-card">
+                        <div class="rank-name">
+                            <span class="rank-icon">💼</span>
+                            الوزيرة
+                        </div>
+                        <div class="rank-members">ميكاسا</div>
+                    </div>
+                    
+                    <div class="rank-card">
+                        <div class="rank-name">
+                            <span class="rank-icon">⚔️</span>
+                            ملازم
+                        </div>
+                        <div class="rank-members">شادو - أودين - دابي</div>
+                    </div>
+                    
+                    <div class="rank-card">
+                        <div class="rank-name">
+                            <span class="rank-icon">🏴</span>
+                            حامل بيرق
+                        </div>
+                        <div class="rank-members">هيساغي - لاك - مايكي</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- الرتب الذوقية -->
+            <div class="rank-category">
+                <h3 class="category-title">الرتب الذوقية</h3>
+                <div class="rank-grid">
+                    <div class="rank-card">
+                        <div class="rank-name">
+                            <span class="rank-icon">🎭</span>
+                            ذوق زينتسو
+                        </div>
+                        <div class="rank-members">زينتسو</div>
+                    </div>
+                    
+                    <div class="rank-card">
+                        <div class="rank-name">
+                            <span class="rank-icon">🎨</span>
+                            نواب الذوق
+                        </div>
+                        <div class="rank-members">غوجو ساتورو - أوريهيمي اينوي - سايا</div>
+                    </div>
+                    
+                    <div class="rank-card">
+                        <div class="rank-name">
+                            <span class="rank-icon">🏯</span>
+                            وزير برادايس
+                        </div>
+                        <div class="rank-members">ريمورو تيمبيست</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- قسم التواصل -->
+        <div class="contact-section">
+            <h2 class="contact-title">تواصل مع مطور النقابة</h2>
+            
+            <div class="contact-methods">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3 class="contact-card-title">الواتساب</h3>
+                    <div class="contact-info">
+                        للتواصل المباشر مع المطور ايساغي
+                    </div>
+                    <a href="https://wa.me/212684466260" target="_blank" class="contact-btn">
+                        <i class="fab fa-whatsapp"></i> +212 684466260
+                    </a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h3 class="contact-card-title">البريد الإلكتروني</h3>
+                    <div class="contact-info">
+                        أرسل رسالتك عبر البريد الإلكتروني
+                    </div>
+                    <a href="mailto:auzalmarouane54@gmail.com" class="contact-btn">
+                        <i class="fas fa-envelope"></i> auzalmarouane54@gmail.com
+                    </a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="contact-card-title">كروب النقابة</h3>
+                    <div class="contact-info">
+                        انضم إلى كروب النقابة على الواتساب
+                    </div>
+                    <a href="https://chat.whatsapp.com/DMd5VFgLaT35xXdg53Z1iu" target="_blank" class="contact-btn">
+                        <i class="fab fa-whatsapp"></i> انضم الآن
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>نقابة الأنمي الإمبراطورية | تحت غيمة RAIN</p>
+            <div class="copyright">ايساغي 2025 ⛈️RAIN</div>
+        </footer>
+    </div>
+
+    <script>
+        // إنشاء تأثير المطر
+        function createRainEffect() {
+            const rainContainer = document.getElementById('rainEffect');
+            for (let i = 0; i < 100; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('drop');
+                drop.style.left = Math.random() * 100 + 'vw';
+                drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+                drop.style.animationDelay = Math.random() * 5 + 's';
+                drop.style.opacity = Math.random() * 0.5 + 0.3;
+                rainContainer.appendChild(drop);
+            }
+        }
+        
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            createRainEffect();
+            
+            // إضافة تأثيرات للرتب الإمبراطورية
+            const imperialCards = document.querySelectorAll('.imperial-card');
+            imperialCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'perspective(1000px) rotateX(5deg) translateY(-8px) scale(1.03)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'perspective(1000px) rotateX(5deg)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
